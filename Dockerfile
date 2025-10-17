@@ -8,6 +8,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY index.html /usr/share/nginx/html/
 COPY styles.css /usr/share/nginx/html/
 COPY script.js /usr/share/nginx/html/
+COPY photo.jpg /usr/share/nginx/html/
 
 # Create a non-root user for security
 RUN addgroup -g 1001 -S nginx && \

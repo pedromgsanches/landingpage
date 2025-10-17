@@ -17,6 +17,7 @@ A modern, responsive landing page showcasing Pedro's personal profile, WordPress
 ├── index.html              # Main HTML file
 ├── styles.css              # CSS styles and responsive design
 ├── script.js               # JavaScript functionality
+├── photo.jpg               # Profile photo
 ├── docker-compose.yml      # Docker Compose configuration
 ├── docker-compose.prod.yml # Production Docker Compose
 ├── Dockerfile              # Custom Docker image

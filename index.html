@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedro - Personal Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Pedro Sanches</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Hi, I'm <span class="highlight">Pedro</span></h1>
+                <p class="hero-subtitle">Welcome to my personal space on the web</p>
+                <p class="hero-description">
+                    I'm passionate about sharing knowledge and connecting with others through my blog and professional network.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#blog" class="btn btn-primary">Read My Blog</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Pedro</h3>
+                    <p>Content Creator & Professional</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+                <p>Get to know me better</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Hello! I'm Pedro Sanches, an experienced Senior Services Engineer based in Lisbon, Portugal. 
+                        Through my WordPress blog "as cenas do pedro", I share my technical adventures, database 
+                        migration experiences, outdoor adventures, and life insights.
+                    </p>
+                    <p>
+                        I believe in the power of continuous learning and sharing knowledge. Whether it's through 
+                        writing about PostgreSQL migrations, Elasticsearch performance, outdoor adventures, or 
+                        life experiences, I'm always looking for ways to grow and contribute to the community.
+                    </p>
+                    <div class="skills">
+                        <h3>What I Do</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Senior Services Engineering</span>
+                            <span class="skill-tag">Technology Insights</span>
+                            <span class="skill-tag">Professional Development</span>
+                            <span class="skill-tag">Knowledge Sharing</span>
+                            <span class="skill-tag">Content Writing</span>
+                            <span class="skill-tag">AI & Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2>My Blog</h2>
+                <p>Thoughts, insights, and stories from my WordPress blog</p>
+            </div>
+            <div class="blog-content">
+                <div class="blog-card">
+                    <div class="blog-icon">
+                        <i class="fab fa-wordpress"></i>
+                    </div>
+                    <h3>as cenas do pedro</h3>
+                    <p>Visit my WordPress blog "as cenas do pedro" to read about my technical adventures, database migrations, outdoor experiences, and life insights.</p>
+                    <a href="https://cenasdopedro.wordpress.com/" class="blog-link" target="_blank">
+                        Visit My Blog <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="blog-preview">
+                    <h4>Blog Categories</h4>
+                    <ul class="topic-list">
+                        <li>cenas do IT (Technical)</li>
+                        <li>cenas de aventuras (Adventures)</li>
+                        <li>cenas da vida (Life)</li>
+                        <li>cenas do underground</li>
+                        <li>Database Migrations</li>
+                        <li>PostgreSQL & Elasticsearch</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Let's Connect</h2>
+                <p>I'd love to hear from you</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>LinkedIn</h3>
+                    <p>Connect with me on LinkedIn for professional networking and updates.</p>
+                    <a href="https://www.linkedin.com/in/pedro-sanches-75790813/" class="contact-link" target="_blank">
+                        Connect on LinkedIn <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="contact-form">
+                    <h3>Send me a message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2024 Pedro. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#blog">Blog</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

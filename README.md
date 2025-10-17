@@ -14,11 +14,17 @@ A modern, responsive landing page showcasing Pedro's personal profile, WordPress
 ## 📁 Project Structure
 
 ```
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles and responsive design
-├── script.js           # JavaScript functionality
-├── README.md           # This file
-└── .gitignore          # Git ignore file
+├── index.html              # Main HTML file
+├── styles.css              # CSS styles and responsive design
+├── script.js               # JavaScript functionality
+├── docker-compose.yml      # Docker Compose configuration
+├── docker-compose.prod.yml # Production Docker Compose
+├── Dockerfile              # Custom Docker image
+├── nginx.conf              # Nginx configuration
+├── start.sh                # Startup script
+├── README.md               # This file
+├── LICENSE                 # MIT License
+└── .gitignore              # Git ignore file
 ```
 
 ## 🛠️ Setup Instructions
@@ -27,8 +33,9 @@ A modern, responsive landing page showcasing Pedro's personal profile, WordPress
 - A web browser (Chrome, Firefox, Safari, Edge)
 - A text editor (VS Code, Sublime Text, etc.)
 - Git (for version control)
+- Docker and Docker Compose (for containerized deployment)
 
-### Installation
+### Quick Start with Docker (Recommended)
 
 1. **Clone or Download**
    ```bash
@@ -36,43 +43,74 @@ A modern, responsive landing page showcasing Pedro's personal profile, WordPress
    cd pedro-landing-page
    ```
 
-2. **Open in Browser**
-   - Simply open `index.html` in your web browser
-   - Or use a local server for better development experience:
+2. **Run with Docker Compose**
    ```bash
-   # Using Python
-   python -m http.server 8000
+   # Make the startup script executable (Linux/Mac)
+   chmod +x start.sh
    
-   # Using Node.js (if you have http-server installed)
-   npx http-server
+   # Run the startup script
+   ./start.sh
    
-   # Using PHP
-   php -S localhost:8000
+   # Or run directly with Docker Compose
+   docker-compose up --build -d
    ```
 
-3. **Customize Your Content**
-   - Edit `index.html` to update your personal information
-   - Replace placeholder links with your actual WordPress blog and LinkedIn URLs
-   - Modify colors and styling in `styles.css` if desired
+3. **Access Your Landing Page**
+   - Open your browser and go to: `http://localhost:8080`
+   - The page will be served by Nginx with optimized performance
+
+### Alternative Setup Methods
+
+#### Method 1: Simple File Opening
+- Simply open `index.html` in your web browser
+- Note: Some features may not work due to CORS restrictions
+
+#### Method 2: Local Development Server
+```bash
+# Using Python
+python -m http.server 8000
+
+# Using Node.js (if you have http-server installed)
+npx http-server
+
+# Using PHP
+php -S localhost:8000
+```
+
+#### Method 3: Production Deployment
+```bash
+# For production with SSL and monitoring
+docker-compose -f docker-compose.prod.yml up --build -d
+```
+
+### Docker Commands
+
+```bash
+# Start the application
+docker-compose up -d
+
+# Stop the application
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Rebuild and restart
+docker-compose up --build -d
+
+# Check container status
+docker-compose ps
+```
 
 ## 🎨 Customization
 
 ### Updating Links
-In `index.html`, find and replace these placeholder links:
+The landing page is already configured with your actual links:
 
-```html
-<!-- WordPress Blog Link -->
-<a href="#" class="blog-link" target="_blank">
-    Visit My Blog <i class="fas fa-external-link-alt"></i>
-</a>
+- **WordPress Blog**: [https://cenasdopedro.wordpress.com/](https://cenasdopedro.wordpress.com/)
+- **LinkedIn Profile**: [https://www.linkedin.com/in/pedro-sanches-75790813/](https://www.linkedin.com/in/pedro-sanches-75790813/)
 
-<!-- LinkedIn Profile Link -->
-<a href="#" class="contact-link" target="_blank">
-    Connect on LinkedIn <i class="fas fa-external-link-alt"></i>
-</a>
-```
-
-Replace `href="#"` with your actual URLs.
+If you need to update these links, edit the `href` attributes in `index.html`.
 
 ### Changing Colors
 In `styles.css`, you can customize the color scheme by modifying these CSS variables:
@@ -123,20 +161,85 @@ The landing page is fully responsive and includes:
 - Intersection Observer for animations
 - Optimized CSS with efficient selectors
 - Minimal JavaScript footprint
+- Nginx with Gzip compression
+- Static asset caching
+- Security headers
+- Health check endpoints
+
+## 🐳 Docker Configuration
+
+### Files Overview
+- **`docker-compose.yml`**: Development configuration with volume mounts
+- **`docker-compose.prod.yml`**: Production configuration with SSL and monitoring
+- **`Dockerfile`**: Custom Nginx image with security optimizations
+- **`nginx.conf`**: Optimized Nginx configuration with caching and security
+- **`start.sh`**: Automated setup script
+
+### Features
+- **Security**: Non-root user, security headers, minimal attack surface
+- **Performance**: Gzip compression, static asset caching, optimized settings
+- **Monitoring**: Health checks, logging, optional Prometheus integration
+- **SSL Ready**: Production configuration supports SSL certificates
+- **Scalable**: Easy to deploy across multiple environments
+
+### Environment Variables
+```bash
+# Optional environment variables
+NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/templates
+NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+```
 
 ## 🚀 Deployment
 
-### GitHub Pages
+### Docker Deployment (Recommended)
+
+#### Local Development
+```bash
+# Start the application locally
+docker-compose up -d
+# Access at http://localhost:8080
+```
+
+#### Production Deployment
+```bash
+# Deploy with production configuration
+docker-compose -f docker-compose.prod.yml up -d
+# Includes SSL, monitoring, and optimized settings
+```
+
+#### Cloud Deployment Options
+- **Docker Hub**: Push your image and deploy anywhere
+- **AWS ECS/Fargate**: Serverless container deployment
+- **Google Cloud Run**: Managed container platform
+- **Azure Container Instances**: Simple container hosting
+- **DigitalOcean App Platform**: Easy container deployment
+
+### Traditional Deployment
+
+#### GitHub Pages
 1. Push your code to a GitHub repository
 2. Go to repository Settings > Pages
 3. Select source branch (usually `main`)
 4. Your site will be available at `https://yourusername.github.io/repository-name`
 
-### Other Hosting Options
+#### Other Hosting Options
 - **Netlify**: Drag and drop deployment
 - **Vercel**: Connect your GitHub repository
 - **Firebase Hosting**: Google's hosting platform
 - **Traditional Web Hosting**: Upload files via FTP
+
+### Docker Image Building
+```bash
+# Build custom image
+docker build -t pedro-landing-page .
+
+# Run the image
+docker run -p 8080:80 pedro-landing-page
+
+# Push to registry
+docker tag pedro-landing-page your-registry/pedro-landing-page
+docker push your-registry/pedro-landing-page
+```
 
 ## 📝 License
 

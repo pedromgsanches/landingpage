@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: pedro-landing-page-ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./styles.css:/usr/share/nginx/html/styles.css:ro
+      - ./script.js:/usr/share/nginx/html/script.js:ro
+      - ./photo.jpg:/usr/share/nginx/html/photo.jpg:ro
+      - ./nginx-ssl.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+    restart: unless-stopped
+    networks:
+      - pedro-network
+
+  certbot-renewal:
+    image: certbot/certbot
+    container_name: pedro-certbot-renewal
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: sh -c "trap exit TERM; while :; do certbot renew --webroot --webroot-path=/var/www/certbot; sleep 12h & wait $${!}; done;"
+    restart: unless-stopped
+    networks:
+      - pedro-network
+
+  # Optional: Add a service to reload nginx when certificates are renewed
+  nginx-reloader:
+    image: nginx:alpine
+    container_name: pedro-nginx-reloader
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: sh -c "
+      apk add --no-cache inotify-tools docker-cli &&
+      while inotifywait -e modify /etc/letsencrypt/live/landingpedro.duckdns.org/; do
+        echo 'Certificate updated, reloading nginx...';
+        docker exec pedro-landing-page-ssl nginx -s reload;
+      done"
+    restart: unless-stopped
+    networks:
+      - pedro-network
+    depends_on:
+      - web
+
+networks:
+  pedro-network:
+    driver: bridge

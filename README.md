@@ -20,8 +20,12 @@ A modern, responsive landing page showcasing Pedro's personal profile, WordPress
 ├── photo.jpg               # Profile photo
 ├── docker-compose.yml      # Docker Compose configuration
 ├── docker-compose.prod.yml # Production Docker Compose
+├── docker-compose.ssl.yml  # SSL-enabled Docker Compose
 ├── Dockerfile              # Custom Docker image
 ├── nginx.conf              # Nginx configuration
+├── nginx-ssl.conf          # SSL-enabled Nginx configuration
+├── ssl-setup.sh            # SSL setup script
+├── ssl-renew.sh            # SSL renewal script
 ├── start.sh                # Startup script
 ├── README.md               # This file
 ├── LICENSE                 # MIT License
@@ -78,7 +82,17 @@ npx http-server
 php -S localhost:8000
 ```
 
-#### Method 3: Production Deployment
+#### Method 3: SSL-Enabled Production Deployment
+```bash
+# For production with SSL (landingpedro.duckdns.org)
+chmod +x ssl-setup.sh
+./ssl-setup.sh
+
+# Or use the SSL-enabled compose file
+docker-compose -f docker-compose.ssl.yml up --build -d
+```
+
+#### Method 4: Traditional Production Deployment
 ```bash
 # For production with SSL and monitoring
 docker-compose -f docker-compose.prod.yml up --build -d
@@ -188,6 +202,64 @@ The landing page is fully responsive and includes:
 # Optional environment variables
 NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/templates
 NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+```
+
+## 🔐 SSL Configuration
+
+### Domain Setup
+The landing page is configured for SSL with the domain: **landingpedro.duckdns.org**
+
+### SSL Setup Process
+
+1. **Prerequisites**
+   - Domain `landingpedro.duckdns.org` must point to your server's IP
+   - Ports 80 and 443 must be open
+   - Update email address in `docker-compose.yml`
+
+2. **Initial SSL Setup**
+   ```bash
+   # Make scripts executable
+   chmod +x ssl-setup.sh ssl-renew.sh
+   
+   # Run SSL setup
+   ./ssl-setup.sh
+   ```
+
+3. **Manual Certificate Renewal**
+   ```bash
+   # Renew certificates manually
+   ./ssl-renew.sh renew
+   
+   # Check certificate expiry
+   ./ssl-renew.sh check
+   ```
+
+4. **Automatic Renewal**
+   ```bash
+   # Set up automatic renewal (runs every Monday at 2 AM)
+   ./ssl-renew.sh auto-renew
+   ```
+
+### SSL Features
+- **Let's Encrypt Certificates**: Free, automatically renewed SSL certificates
+- **HTTP to HTTPS Redirect**: All traffic automatically redirected to HTTPS
+- **Security Headers**: HSTS, CSP, and other security headers
+- **Modern SSL**: TLS 1.2 and 1.3 support
+- **Auto-Renewal**: Certificates automatically renewed before expiry
+
+### Troubleshooting SSL
+```bash
+# Check certificate status
+docker-compose logs certbot
+
+# Test SSL connection
+curl -I https://landingpedro.duckdns.org
+
+# View nginx SSL configuration
+docker-compose exec web nginx -T
+
+# Renew certificates manually
+docker-compose run --rm certbot renew
 ```
 
 ## 🚀 Deployment
